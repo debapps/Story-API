@@ -51,4 +51,54 @@ router.post(
     }
 );
 
+// API Route: /api/story
+// Method: GET
+// Function: Fetch all stories from the DB.
+
+router.get("/", async (req, res) => {
+    // Get all the stories from the DB.
+    const stories = await prisma.story.findMany({
+        select: {
+            id: true,
+            slug: true,
+            title: true,
+            category: true,
+            synopsis: true,
+            author: true,
+            content: true,
+        },
+    });
+
+    // Send the response.
+    return res.status(200).json({ stories });
+});
+
+// API Route: /api/story/[slug]
+// Method: GET
+// Function: Fetch story specific to the slug.
+
+router.get("/:slug", async (req, res) => {
+    // Get the slug from the request parameter.
+    const { slug } = req.params;
+
+    // Get the story for the specific slug.
+    const story = await prisma.story.findUnique({
+        select: {
+            id: true,
+            slug: true,
+            title: true,
+            category: true,
+            synopsis: true,
+            author: true,
+            content: true,
+        },
+        where: {
+            slug,
+        },
+    });
+
+    // Send the response.
+    return res.status(200).json({ ...story });
+});
+
 module.exports = router;
