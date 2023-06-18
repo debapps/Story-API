@@ -66,6 +66,7 @@ router.get("/", async (req, res) => {
             synopsis: true,
             author: true,
             content: true,
+            updatedAt: true,
         },
     });
 
@@ -91,6 +92,7 @@ router.get("/:slug", async (req, res) => {
             synopsis: true,
             author: true,
             content: true,
+            updatedAt: true,
         },
         where: {
             slug,
