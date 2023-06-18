@@ -9,7 +9,7 @@ This application is a REST API for fictional stories. The application is created
 
 ## Test URL
 
-> http://localhost:<PORT>/api/story
+> http://localhost:**PORT**/api/story
 
 ## Production URL
 
