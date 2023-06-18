@@ -9,11 +9,11 @@ This application is a REST API for fictional stories. The application is created
 
 ## Test URL
 
-> http://localhost:3030/api/story
+> http://localhost:<PORT>/api/story
 
 ## Production URL
 
-> http://localhost:3030/api/story
+> https://story-api-y108.onrender.com/api/story
 
 ## API EndPoints
 
