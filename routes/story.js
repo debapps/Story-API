@@ -16,6 +16,7 @@ const prisma = new prismaClient.PrismaClient();
 router.post(
     "/",
     body("title", "Please enter story title!").isLength({ min: 1 }),
+    body("image", "Please enter story image URL!").isLength({ min: 1 }),
     body("category", "Please enter story category!").isLength({ min: 1 }),
     body("synopsis", "Please enter story synopsis!").isLength({ min: 1 }),
     body("author", "Please enter author name!").isLength({ min: 1 }),
@@ -62,6 +63,7 @@ router.get("/", async (req, res) => {
             id: true,
             slug: true,
             title: true,
+            image: true,
             category: true,
             synopsis: true,
             author: true,
@@ -88,6 +90,7 @@ router.get("/:slug", async (req, res) => {
             id: true,
             slug: true,
             title: true,
+            image: true,
             category: true,
             synopsis: true,
             author: true,
