@@ -20,3 +20,12 @@ This application is a REST API for fictional stories. The application is created
 -   **/api/story**: Method **GET**. Fetch all stories from the DB.
 -   **/api/story/[slug]**: Method **GET**. Fetch story specific to the slug.
 -   **/api/story**: Method **POST**. Adds a new story into the DB.
+
+## Story Attributes.
+
+-   title
+-   image
+-   synopsis
+-   category
+-   author
+-   content
