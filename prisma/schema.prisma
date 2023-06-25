@@ -15,6 +15,7 @@ model Story {
   slug        String    @unique
   category    String
   title       String
+  image       String
   synopsis    String
   author      String
   content     String
