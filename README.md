@@ -18,12 +18,15 @@ This application is a REST API for fictional stories. The application is created
 ## API EndPoints
 
 -   **/api/story**: Method **GET**. Fetch all stories from the DB.
--   **/api/story/[slug]**: Method **GET**. Fetch story specific to the slug.
+-   **/api/story?author=XXX**: Method **GET**. Fetch all stories from the DB. We can query stories by author as well. (optional)
 -   **/api/story**: Method **POST**. Adds a new story into the DB.
+-   **/api/story/[slug]**: Method **GET**. Fetch story specific to the slug.
+-   **/api/story/[slug]**: Method **DELETE**. Delete story by the slug.
 
 ## Story Attributes.
 
 -   title
+-   slug
 -   image
 -   synopsis
 -   category

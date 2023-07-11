@@ -52,28 +52,37 @@ router.post(
     }
 );
 
-// API Route: /api/story
+// API Route: /api/story?author=XXX
 // Method: GET
-// Function: Fetch all stories from the DB.
+// Function: Fetch all stories from the DB. We can query stories by author as well.
 
 router.get("/", async (req, res) => {
-    // Get all the stories from the DB.
-    const stories = await prisma.story.findMany({
-        select: {
-            id: true,
-            slug: true,
-            title: true,
-            image: true,
-            category: true,
-            synopsis: true,
-            author: true,
-            content: true,
-            updatedAt: true,
-        },
-    });
+    const { author } = req.query;
 
-    // Send the response.
-    return res.status(200).json({ stories });
+    try {
+        // Get all the stories from the DB.
+        const stories = await prisma.story.findMany({
+            select: {
+                id: true,
+                slug: true,
+                title: true,
+                image: true,
+                category: true,
+                synopsis: true,
+                author: true,
+                content: true,
+                updatedAt: true,
+            },
+            where: {
+                author,
+            },
+        });
+
+        // Send the response.
+        return res.status(200).json({ stories });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 });
 
 // API Route: /api/story/[slug]
@@ -84,26 +93,53 @@ router.get("/:slug", async (req, res) => {
     // Get the slug from the request parameter.
     const { slug } = req.params;
 
-    // Get the story for the specific slug.
-    const story = await prisma.story.findUnique({
-        select: {
-            id: true,
-            slug: true,
-            title: true,
-            image: true,
-            category: true,
-            synopsis: true,
-            author: true,
-            content: true,
-            updatedAt: true,
-        },
-        where: {
-            slug,
-        },
-    });
+    try {
+        // Get the story for the specific slug.
+        const story = await prisma.story.findUnique({
+            select: {
+                id: true,
+                slug: true,
+                title: true,
+                image: true,
+                category: true,
+                synopsis: true,
+                author: true,
+                content: true,
+                updatedAt: true,
+            },
+            where: {
+                slug,
+            },
+        });
 
-    // Send the response.
-    return res.status(200).json({ ...story });
+        // Send the response.
+        return res.status(200).json({ ...story });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+
+// API Route: /api/story/[slug]
+// Method: DELETE
+// Function: Delete story by the slug.
+
+router.delete("/:slug", async (req, res) => {
+    // Get the slug from the request parameter.
+    const { slug } = req.params;
+
+    try {
+        // Delete the story for the specific slug.
+        await prisma.story.delete({
+            where: {
+                slug,
+            },
+        });
+
+        // Send the response.
+        return res.status(200).json({ message: "The story has been deleted." });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 });
 
 module.exports = router;
