@@ -78,6 +78,22 @@ router.get("/", async (req, res) => {
             },
         });
 
+        // Sort the stories by the updatedAt, with recent stories come first.
+        stories.sort((s1, s2) => {
+            // Convert the updatedAt timestamps to milliseconds.
+            const ms1 = Date.parse(s1.updatedAt);
+            const ms2 = Date.parse(s2.updatedAt);
+
+            // Compare the milliseconds. Sorts the stories with recent updates come first.
+            if (ms1 < ms2) {
+                return 1;
+            } else if (ms1 > ms2) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
         // Send the response.
         return res.status(200).json({ stories });
     } catch (error) {
